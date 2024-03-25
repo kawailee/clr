@@ -1850,7 +1850,7 @@ bool Device::populateOCLDeviceConstants() {
   // remove detecting of hostUnifiedMemory until hsa.h has HSA_AMD_AGENT_INFO_MEMORY_PROPERTIES
   // and HSA_AMD_MEMORY_PROPERTY_AGENT_IS_APU defined.
 
-#ifdefine __DEFINED_HSA_AMD_AGENT_INFO_MEMORY_PROPERTIES__
+#ifdef __DEFINED_HSA_AMD_AGENT_INFO_MEMORY_PROPERTIES__
   uint8_t memory_properties[8];
   // Get the memory property from ROCr.
   if (HSA_STATUS_SUCCESS != hsa_agent_get_info(bkendDevice_,
