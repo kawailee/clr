@@ -1863,6 +1863,8 @@ bool Device::populateOCLDeviceConstants() {
   if (hsa_flag_isset64(memory_properties, HSA_AMD_MEMORY_PROPERTY_AGENT_IS_APU)) {
     info_.hostUnifiedMemory_ = 1;
   }
+#else
+  info_.hostUnifiedMemory_ = 0;
 #endif
 
   return true;
