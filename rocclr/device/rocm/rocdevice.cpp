@@ -1847,6 +1847,10 @@ bool Device::populateOCLDeviceConstants() {
         std::numeric_limits<uint32_t>::max();  // gfx10+ does not share SGPRs between waves
   }
 
+  // remove detecting of hostUnifiedMemory until hsa.h has HSA_AMD_AGENT_INFO_MEMORY_PROPERTIES
+  // and HSA_AMD_MEMORY_PROPERTY_AGENT_IS_APU defined.
+
+#ifdefine __DEFINED_HSA_AMD_AGENT_INFO_MEMORY_PROPERTIES__
   uint8_t memory_properties[8];
   // Get the memory property from ROCr.
   if (HSA_STATUS_SUCCESS != hsa_agent_get_info(bkendDevice_,
@@ -1859,6 +1863,7 @@ bool Device::populateOCLDeviceConstants() {
   if (hsa_flag_isset64(memory_properties, HSA_AMD_MEMORY_PROPERTY_AGENT_IS_APU)) {
     info_.hostUnifiedMemory_ = 1;
   }
+#endif
 
   return true;
 }
